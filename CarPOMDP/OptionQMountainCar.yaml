@@ -1,17 +1,20 @@
 agent_file: https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/master/CarPOMDP/OptionQMountainPOMDP.py?token=AEMtOTLFvptC5PLa6sflnuvuhR20fNNaks5aNPzUwA%3D%3D
 dependencies:
-	- https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/master/CarPOMDP/option_space.py?token=AEMtOQVY01hm1ivmH-ftv6OFcDfIj8oxks5aNP0twA%3D%3D
+    - https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/master/CarPOMDP/option_space.py?token=AEMtOQVY01hm1ivmH-ftv6OFcDfIj8oxks5aNP0twA%3D%3D
 requirements: https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/master/CarPOMDP/Requirements.txt
 num_trials: 100
+saved_files:
+    - options_executed.npy
+    - steps.npy
+    - accumulated_reward.npy
 priority: 
-	- 10
-	- 10
-	- 10
-	- 10
-	- 10
-	- 10
-	- 10
-	- 10
-	- 10
-	- 10
-
+    - 10
+    - 10
+    - 10
+    - 10
+    - 10
+    - 10
+    - 10
+    - 10
+    - 10
+    - 10
