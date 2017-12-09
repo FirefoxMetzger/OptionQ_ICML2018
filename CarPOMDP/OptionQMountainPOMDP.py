@@ -2,7 +2,6 @@ import numpy as np
 from gym.spaces import prng
 import random
 import gym
-import time
 from option_space import OptionSpace
 
 
