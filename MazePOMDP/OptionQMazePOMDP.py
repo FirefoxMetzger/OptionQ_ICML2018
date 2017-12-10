@@ -29,21 +29,31 @@ class Agent(object):
         actions_per_state = list()
         for state in range(NUM_STATES):
             actions_per_state.append(NUM_ACTIONS)
-        self.option_space = OptionSpace(actions_per_state, 3)
+        self.option_space = OptionSpace(actions_per_state, 2)
         
         NUM_OPTIONS = self.option_space.num_options
         
         self.q_table = 0.0 * np.ones((NUM_STATES, NUM_OPTIONS ))
 
+    def exploration_rate(self):
+        if self.episode < 1:
+            return 0.8
+        else:
+            return 0.0
+
     def train_episode(self):
         # -- setup --
-        self.global_step = 0
         s = self.env.reset()
         s_next = s
         o = self.new_policy(s)
         done = False
         option_stack = list()   # save the list of (s,o) pairs; once done
                                 # update inversed for compliance with semi-MDP
+
+        # -- info about the trial
+        options_executed = 0
+        self.global_step = 0
+        self.accumulated_reward = 0
 
         # -- execute episode --
         acc_reward = 0
@@ -52,7 +62,6 @@ class Agent(object):
         alpha = self.alpha
         gamma = self.gamma
         
-        options_executed = 0
         while not done:
             option = self.new_policy(s)
             s_next, reward, done, time_steps = self.execute_option(s,option)
@@ -70,8 +79,10 @@ class Agent(object):
             s = s_next
         print("Episode %d. Steps: %d Options: %d" % (self.episode, self.global_step,
                                                      options_executed))
-        #print(np.amax(self.q_table, 1))
+
         self.episode += 1
+        return options_executed, self.global_step, self.accumulated_reward
+
 
     def execute_option(self, s, option):
         alpha = self.alpha
@@ -116,11 +127,12 @@ class Agent(object):
             discounted_reward += (gamma ** time_steps) * reward
             time_steps += 1
             self.global_step += 1
+            self.accumulated_reward += reward
 
         return s_next, discounted_reward, done, time_steps
 
     def new_policy(self, s):
-        exploration_rate = 0.0
+        exploration_rate = self.exploration_rate()
         valid_options = self.option_space.options_in_state(s)
         
         if random.random() < exploration_rate:
@@ -130,16 +142,33 @@ class Agent(object):
             best_option = valid_options[option_idx]
             return best_option
 
-def main():
+def main(trial_idx):
+    # initialization data for up to 100 trails
+    random.seed(1337)
+    env_seed = [random.randint(10,1e6) for i in range(100)]
+    agent_seed = [random.randint(10,1e6) for i in range(100)]
+    
     env = POMDPMaze()
-    env.seed(500)
-    prng.seed(48)
+    env.seed(env_seed[trial_idx])
+    
     agent = Agent()
     agent.set_environment(env)
-    agent.seed(48)
+    agent.seed(agent_seed[trial_idx])
 
-    for idx in range(2501):
-        agent.train_episode()
+    options_executed = np.zeros(1000)
+    steps = np.zeros(1000)
+    accumulated_reward = np.zeros(1000)
+
+    for episode in range(1000):
+        ep_options_executed, ep_steps, acc_reward = agent.train_episode()
+
+        options_executed[episode] = ep_options_executed
+        steps[episode] = ep_steps
+        accumulated_reward[episode] = acc_reward
+
+    np.save("options_executed.npy", options_executed)
+    np.save("steps.npy", steps)
+    np.save("accumulated_reward.npy", accumulated_reward)
 
 if __name__ == "__main__":
-    main()
+    main(0)
