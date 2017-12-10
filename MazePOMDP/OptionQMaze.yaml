@@ -1,0 +1,12 @@
+agent_file: 
+    "OptionQMazePOMDP.py": https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/master/MazePOMDP/OptionQMazePOMDP.py?token=AEMtOcER2tmPCiIqSHlWzwXaYXOv_1h8ks5aNkQ9wA%3D%3D
+dependencies:
+    "option_space.py": https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/master/MazePOMDP/option_space.py?token=AEMtOU0tI0A28DpGePy42r1OmOJevOOdks5aNkQAwA%3D%3D
+    "pomdp_maze.py": https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/master/MazePOMDP/pomdp_maze.py?token=AEMtOTkOvDDgla70pncoG1FgAuadfCrEks5aNkQlwA%3D%3D
+requirements: 
+    "Requirements.txt": https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/master/MazePOMDP/Requirements.txt?token=AEMtORC4L1CpyQwSGQy7CpLQ7cRJUrD2ks5aNkOkwA%3D%3D
+num_trials: 100
+saved_files:
+    - options_executed.npy
+    - steps.npy
+    - accumulated_reward.npy
