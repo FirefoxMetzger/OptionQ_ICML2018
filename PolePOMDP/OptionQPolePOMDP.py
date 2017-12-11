@@ -9,7 +9,7 @@ class Agent(object):
     def __init__(self):
         self.episode = 0
         self.accumulated_reward = 0
-        self.gamma = 0.8
+        self.gamma = 0.5
 
     def seed(self, seed):
         prng.seed(seed)
@@ -40,23 +40,25 @@ class Agent(object):
         self.option_space = OptionSpace(actions_per_state, 3)
         
         NUM_OPTIONS = self.option_space.num_options
-        self.q_table = np.zeros((NUM_STATES, NUM_OPTIONS ))
+        self.q_table = 0.0 * np.ones((NUM_STATES, NUM_OPTIONS ))
         self.q_table[NUM_BUCKETS[0]-1,:] = 0.0
 
     def learning_rate(self):
         # the learning rate scheme
-        if self.episode < 50:
+        if self.episode < 100:
             return 0.9
+        elif self.episode < 200:
+            return 0.3
         else:
             return 0.3
 
     def exploration_rate(self):
         if self.episode < 50:
-            return 0.3
+            return 0.8
         elif self.episode < 200:
-            return 0.3
+            return 0.000
         else:
-            return 0.001
+            return 0.000
 
     def train_episode(self):
         # -- setup --
@@ -128,7 +130,7 @@ class Agent(object):
             # terminal action
             s_next = s
             reward = 0
-            time_steps = 1
+            time_steps = 0
             done = False
             return s_next, reward, done, time_steps
 
@@ -138,7 +140,7 @@ class Agent(object):
         done = False
         s_next = s
         
-        while s == s_next and not done and time_steps < 2:
+        while s == s_next and not done and time_steps < 10:
             next_state_cont, reward, done, _ = self.env.step(action)
             s_next = self.discretize(next_state_cont)
 
@@ -146,7 +148,8 @@ class Agent(object):
             time_steps += 1
             self.global_step += 1
             self.accumulated_reward += reward
-            #self.env.render()
+            if self.episode > 200:
+                self.env.render()
 
         return s_next, discounted_reward, done, time_steps
 
@@ -197,4 +200,4 @@ def main(trial_idx):
     np.save("accumulated_reward.npy", accumulated_reward)
 
 if __name__ == "__main__":
-    main(0)
+    main(99)
