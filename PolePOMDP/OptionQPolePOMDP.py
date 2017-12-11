@@ -148,8 +148,6 @@ class Agent(object):
             time_steps += 1
             self.global_step += 1
             self.accumulated_reward += reward
-            if self.episode > 200:
-                self.env.render()
 
         return s_next, discounted_reward, done, time_steps
 
