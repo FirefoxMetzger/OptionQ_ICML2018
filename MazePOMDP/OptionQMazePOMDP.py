@@ -124,6 +124,9 @@ class Agent(object):
         while s == s_next and not done and time_steps < 100:
             s_next, reward, done, _ = self.env.step(action)
 
+            # limit to 500 steps
+            done = done or self.global_step > 800
+
             discounted_reward += (gamma ** time_steps) * reward
             time_steps += 1
             self.global_step += 1
