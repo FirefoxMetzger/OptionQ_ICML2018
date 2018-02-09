@@ -25,7 +25,7 @@ class Agent(object):
         BINS = [0,0,0,0]
         BINS[0] = np.array([0.0])
         BINS[1] = np.array([0.0])
-        BINS[2] = np.array([-0.62831853, -0.20943951, 0,  0.20943951])
+        BINS[2] = np.array([-0.62831853, -0.20943951, 0.05,  0.20943951])
         BINS[3] = np.array([0.0, np.radians(50)])
         NUM_BUCKETS = (BINS[0].size, BINS[1].size, BINS[2].size, BINS[3].size)
         self.BINS = BINS
