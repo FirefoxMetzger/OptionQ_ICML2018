@@ -1,9 +1,9 @@
 agent_file: 
     "OptionQMountainPOMDP.py": https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/QLearning/CarPOMDP/OptionQMountainPOMDP.py
 dependencies:
-    "option_space.py": https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/QLearning/CarPOMDP/Requirements.txt
+    "option_space.py": https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/QLearning/CarPOMDP/option_space.py
 requirements: 
-    "Requirements.txt": https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/QLearning/CarPOMDP/option_space.py
+    "Requirements.txt": https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/QLearning/CarPOMDP/Requirements.txt
 num_trials: 100
 saved_files:
     - options_executed.npy
