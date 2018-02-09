@@ -35,7 +35,7 @@ class Agent(object):
         actions_per_state = list()
         for state in range(NUM_STATES):
             actions_per_state.append(NUM_ACTIONS)
-        self.option_space = OptionSpace(actions_per_state, 3)
+        self.option_space = OptionSpace(actions_per_state, 1)
         
         NUM_OPTIONS = self.option_space.num_options
         self.q_table = np.zeros((NUM_STATES, NUM_OPTIONS ))
