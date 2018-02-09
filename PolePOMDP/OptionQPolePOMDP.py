@@ -25,7 +25,7 @@ class Agent(object):
         BINS = [0,0,0,0]
         BINS[0] = np.array([0.0])
         BINS[1] = np.array([0.0])
-        BINS[2] = np.array([-0.62831853, -0.20943951, 0.075,  0.20943951])
+        BINS[2] = np.array([-0.62831853, -0.20943951, -0.06, 0.06,  0.20943951])
         BINS[3] = np.array([0.0, np.radians(50)])
         NUM_BUCKETS = (BINS[0].size, BINS[1].size, BINS[2].size, BINS[3].size)
         self.BINS = BINS
@@ -37,7 +37,7 @@ class Agent(object):
         actions_per_state = list()
         for state in range(NUM_STATES):
             actions_per_state.append(NUM_ACTIONS)
-        self.option_space = OptionSpace(actions_per_state, 3)
+        self.option_space = OptionSpace(actions_per_state, 4)
         
         NUM_OPTIONS = self.option_space.num_options
         self.q_table = 0.0 * np.ones((NUM_STATES, NUM_OPTIONS ))
@@ -110,6 +110,7 @@ class Agent(object):
         total_time_steps = 0
         discounted_reward = 0
         while option is not None and not done:
+            
             action = self.option_space.get_action(s,option)
             s_next, reward, done, time_steps = self.execute_action(s,action)
             o_next = self.option_space.o_new(s,option)
@@ -140,9 +141,11 @@ class Agent(object):
         done = False
         s_next = s
         
-        while s == s_next and not done and time_steps < 10:
+        while s == s_next and not done and time_steps < 3:
             next_state_cont, reward, done, _ = self.env.step(action)
             s_next = self.discretize(next_state_cont)
+            if self.episode > 1500:
+                self.env.render()
 
             discounted_reward += (gamma ** time_steps) * reward
             time_steps += 1
@@ -198,4 +201,4 @@ def main(trial_idx):
     np.save("accumulated_reward.npy", accumulated_reward)
 
 if __name__ == "__main__":
-    main(99)
+    main(45)
