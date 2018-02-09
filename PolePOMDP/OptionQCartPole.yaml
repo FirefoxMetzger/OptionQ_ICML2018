@@ -1,9 +1,9 @@
 agent_file: 
-    "OptionQPolePOMDP.py": https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/master/PolePOMDP/OptionQPolePOMDP.py?token=AEMtOe75x32rd5POi7ukFEoCnyzKFeEqks5aNreTwA%3D%3D
+    "OptionQPolePOMDP.py": https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/QLearning/PolePOMDP/OptionQPolePOMDP.py
 dependencies:
-    "option_space.py": https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/master/PolePOMDP/option_space.py?token=AEMtOawpTGBt6C2vgcPPkj8dQo3KaxpOks5aNrfVwA%3D%3D
+    "option_space.py": https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/QLearning/PolePOMDP/option_space.py
 requirements: 
-    "Requirements.txt": https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/master/PolePOMDP/Requirements.txt?token=AEMtORi7rtPqPY_mTLRM8FuLHjVCxNN5ks5aNrfrwA%3D%3D
+    "Requirements.txt": https://raw.githubusercontent.com/FirefoxMetzger/OptionQ_ICML2018/QLearning/PolePOMDP/Requirements.txt
 num_trials: 100
 saved_files:
     - options_executed.npy
